@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isAdmin() { return signedIn() && request.auth.token.admin == true; }
+    function isSelf(uid) { return signedIn() && request.auth.uid == uid; }
+    function userRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+
+    match /users/{uid} {
+      allow read: if signedIn();
+      allow create: if isSelf(uid) && request.resource.data.role in ['passenger','driver'];
+      allow update: if isSelf(uid) &&
+        request.resource.data.role == resource.data.role &&
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['name','photo','carMake','carModel','plate','experience','phone','profileComplete','status','location','locationUpdatedAt']);
+      allow delete: if isAdmin();
+    }
+
+    match /rides/{rideId} {
+      allow create: if signedIn() &&
+        request.resource.data.passengerId == request.auth.uid &&
+        request.resource.data.status == 'requested';
+
+      allow read: if signedIn() && (
+        resource.data.passengerId == request.auth.uid ||
+        resource.data.driverId == request.auth.uid ||
+        (resource.data.status == 'requested' && userRole() == 'driver') ||
+        isAdmin()
+      );
+
+      allow update: if signedIn() && (
+        isAdmin() ||
+        (resource.data.passengerId == request.auth.uid &&
+         request.resource.data.diff(resource.data).affectedKeys()
+           .hasOnly(['passengerMet','passengerCompleted','status','cancelledBy','cancelledAt','rating','review'])) ||
+        (resource.data.driverId == request.auth.uid &&
+         request.resource.data.diff(resource.data).affectedKeys()
+           .hasOnly(['driverMet','driverCompleted','status'])) ||
+        (resource.data.status == 'requested' &&
+         userRole() == 'driver' &&
+         resource.data.passengerId != request.auth.uid &&
+         request.resource.data.driverId == request.auth.uid &&
+         request.resource.data.diff(resource.data).affectedKeys()
+           .hasOnly(['driverId','driverName','driverPhone','driverVehicle','driverPlate','status','acceptedAt']))
+      );
+
+      allow delete: if isAdmin();
+
+      match /messages/{msgId} {
+        allow read, create: if signedIn() && (
+          get(/databases/$(database)/documents/rides/$(rideId)).data.passengerId == request.auth.uid ||
+          get(/databases/$(database)/documents/rides/$(rideId)).data.driverId == request.auth.uid
+        );
+      }
+    }
+
+    match /reports/{reportId} {
+      allow create: if signedIn() && request.resource.data.reporterId == request.auth.uid;
+      allow read, update, delete: if isAdmin();
+    }
+  }
+}
