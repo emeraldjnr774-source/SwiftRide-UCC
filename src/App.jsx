@@ -926,22 +926,18 @@ function Dashboard({ user, profile }) {
     setNotice("Ride accepted! Chat with or call your passenger to meet up.");
   }
 
-  async function confirmField(r, field) {
-    try {
-      const update = { [field]: true };
-      const next = { ...r, ...update };
-      if ((field === "passengerMet" && next.driverMet) || (field === "driverMet" && next.passengerMet)) {
-        update.status = "in_progress";
-      }
-      if ((field === "passengerCompleted" && next.driverCompleted) || (field === "driverCompleted" && next.passengerCompleted)) {
-        update.status = "completed";
-      }
-      await updateDoc(doc(db, "rides", r.id), update);
-      if (update.status === "completed" && profile.role === "passenger") {
-        setRateModal(r);
-      }
-    } catch (e) {
-      setNotice("Completion error: " + e.message);
+    async function confirmField(r, field) {
+    const update = { [field]: true };
+    const next = { ...r, ...update };
+    if (next.passengerMet && next.driverMet && r.status === "accepted") {
+      update.status = "in_progress";
+    }
+    if (next.passengerCompleted && next.driverCompleted) {
+      update.status = "completed";
+    }
+    await updateDoc(doc(db, "rides", r.id), update);
+    if (update.status === "completed" && profile.role === "passenger") {
+      setRateModal(r);
     }
   }
 
