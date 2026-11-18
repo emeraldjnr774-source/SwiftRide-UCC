@@ -346,64 +346,128 @@ function HowItWorksPage({ user }) {
   );
 }
 
+const HERO_SLIDES = [
+  {
+    title: "Sam Jonah Library",
+    tag: "CENTRAL CAMPUS · STUDY HUB",
+    route: "Valco Hall → Sam Jonah Library",
+    fare: "GH₵ 4.50",
+    eta: "2 min away",
+    img: "/samjonah.jpg"
+  },
+  {
+    title: "UCC Main Gate & Shuttle Bay",
+    tag: "SOUTH CAMPUS · MAIN ENTRANCE",
+    route: "Old Site → UCC Main Gate",
+    fare: "GH₵ 5.20",
+    eta: "3 min away",
+    img: "/maingate.jpg"
+  },
+  {
+    title: "New Site Lecture Complex",
+    tag: "NORTH CAMPUS · ACADEMIC BLOCK",
+    route: "Science Market → New Site",
+    fare: "GH₵ 6.40",
+    eta: "4 min away",
+    img: "/nlt.jpg"
+  },
+  {
+    title: "Valco & Casford Halls",
+    tag: "STUDENT RESIDENCE · SHUTTLE ROUTE",
+    route: "Casford Hall → Calc / Lecture Hall",
+    fare: "GH₵ 5.00",
+    eta: "2 min away",
+    img: "/valco.jpg"
+  }
+];
+
+
 function Landing() {
+  const [slide, setSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSlide(prev => (prev + 1) % HERO_SLIDES.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, []);
+
+  const current = HERO_SLIDES[slide];
+
   return (
-    <main>
+    <div className="landing">
       <section className="hero">
-        <div className="hero-copy">
-          <span className="eyebrow"><span className="pulse" /> CAMPUS MOBILITY, MADE SIMPLE</span>
-          <h1>Your campus.<br /><em>Your ride.</em><br />One simple move.</h1>
-          <p>Move between UCC's Old and New Sites with campus drivers you can connect with in just a few taps.</p>
+        <div>
+          <div className="eyebrow"><span className="pulse" /> LIVE ON UCC CAMPUS · CAPE COAST</div>
+          <h1>Your campus.<br />Your ride.<br /><em>One simple move.</em></h1>
+          <p>Request verified student and campus drivers between Old Site, New Site, halls of residence, and lecture theaters in seconds.</p>
           <div className="hero-actions">
-            <Link to="/login" className="btn primary">Find a ride <ArrowRight size={17} /></Link>
-            <Link to="/login?role=driver" className="btn secondary">Drive with us</Link>
+            <Link to="/signup" className="btn primary">Book a ride <ArrowRight size={17} /></Link>
+            <Link to="/signup" className="btn secondary">Drive with SwiftRide</Link>
           </div>
-          <div className="hero-note"><ShieldCheck size={16} /> UCC campus-only ride service</div>
+          <div className="hero-note"><ShieldCheck size={16} /> Google-verified accounts · Live GPS tracking · Transparent GH₵ fares</div>
         </div>
+
         <div className="hero-visual">
           <div className="hero-image">
+            {HERO_SLIDES.map((item, idx) => (
+              <div
+                key={item.title}
+                className={cx("hero-slide", idx === slide && "active")}
+                style={{
+                  backgroundImage: `linear-gradient(160deg, rgba(18,53,44,.55), rgba(28,99,77,.45)), url('${item.img}')`
+                }}
+              />
+            ))}
             <div className="image-overlay">
-              <span>UNIVERSITY OF CAPE COAST</span>
-              <b>Across campus,<br />with ease.</b>
+              <span>{current.tag}</span>
+              <b>{current.title}</b>
+              <div className="slide-dots">
+                {HERO_SLIDES.map((item, idx) => (
+                  <button
+                    key={item.title}
+                    type="button"
+                    aria-label={item.title}
+                    className={cx("slide-dot", idx === slide && "active")}
+                    onClick={() => setSlide(idx)}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-          <div className="floating-card ride-card">
-            <span className="mini-icon"><MapPin size={17} /></span>
-            <div><b>Campus to campus</b><small>Old Site ↔ New Site</small></div>
-            <span className="live-dot" />
-          </div>
-          <div className="floating-card fare-card">
-            <small>ESTIMATED FARES FROM</small>
-            <b>GH₵ 5.00</b>
-            <small>Clear pricing before you book</small>
-          </div>
+
+         
         </div>
       </section>
+
       <section className="stats">
-        <div><b>2</b><span>Campus sites</span></div>
-        <div><b>Live</b><span>Driver availability</span></div>
-        <div><b>Safe</b><span>Meet-up confirmation</span></div>
-        <div><b>Simple</b><span>Clear ride pricing</span></div>
+        <div><b>24/7</b><span>Campus coverage</span></div>
+        <div><b>GPS</b><span>Live driver pins</span></div>
+        <div><b>GH₵</b><span>Distance-based fares</span></div>
+        <div><b>UCC</b><span>Built for Cape Coast</span></div>
       </section>
-      <section id="how" className="how-section">
+
+      <section className="how-section">
         <div className="section-heading">
-          <span className="eyebrow">HOW SWIFTRIDE WORKS</span>
-          <h2>Three steps to your next ride.</h2>
+          <span className="eyebrow">HOW IT WORKS</span>
+          <h2>Three steps from hostel to lecture hall.</h2>
         </div>
         <div className="steps">
-          <article><span>01</span><MapPin /><h3>Choose your destination</h3><p>Search UCC campus locations or drop a pin on the map to see distance and fare.</p></article>
-          <article><span>02</span><CarFront /><h3>Meet your driver</h3><p>Chat with your driver, track their arrival, and confirm meet-up before starting.</p></article>
-          <article><span>03</span><CheckCircle2 /><h3>Complete your ride</h3><p>Follow the route, confirm completion, and rate your experience.</p></article>
+          <article><span>01</span><MapPin /><br /><h3>Pick your destination</h3><p>Your GPS pin loads automatically. Search any UCC hall, library, or gate.</p></article>
+          <article><span>02</span><CarFront /><br /><h3>Match with a campus driver</h3><p>See online drivers on the live map and confirm when you meet at the pickup point.</p></article>
+          <article><span>03</span><CheckCircle2 /><br /><h3>Arrive & confirm</h3><p>Follow the live route together and both confirm when the trip is complete.</p></article>
         </div>
       </section>
+
       <footer>
-        <Brand />
-        <span>Made for movement at the University of Cape Coast.</span>
-        <small>SwiftRide is a campus mobility prototype.</small>
+        <b>SwiftRide UCC</b>
+        <span>Campus mobility platform for the University of Cape Coast.</span>
       </footer>
-    </main>
+    </div>
+
   );
 }
+
 
 function AuthPage({ mode = "login" }) {
   const nav = useNavigate();
