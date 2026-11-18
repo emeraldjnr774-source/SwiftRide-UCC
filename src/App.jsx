@@ -926,32 +926,25 @@ function Dashboard({ user, profile }) {
     setNotice("Ride accepted! Chat with or call your passenger to meet up.");
   }
 
- async function confirmField(r, field) {
-  if (field === "passengerCompleted" || field === "driverCompleted") {
-    if (!pos) {
-      setNotice("Waiting for your GPS location before confirming completion.");
-      return;
-    }
-    const distToDestKm = distanceKm(pos, r.destination);
-    if (distToDestKm > 0.15) {
-      setNotice(`You are still ${(distToDestKm * 1000).toFixed(0)}m away from ${r.destinationName}. Arrive at the destination before completing.`);
-      return;
+  async function confirmField(r, field) {
+    try {
+      const update = { [field]: true };
+      const next = { ...r, ...update };
+      if ((field === "passengerMet" && next.driverMet) || (field === "driverMet" && next.passengerMet)) {
+        update.status = "in_progress";
+      }
+      if ((field === "passengerCompleted" && next.driverCompleted) || (field === "driverCompleted" && next.passengerCompleted)) {
+        update.status = "completed";
+      }
+      await updateDoc(doc(db, "rides", r.id), update);
+      if (update.status === "completed" && profile.role === "passenger") {
+        setRateModal(r);
+      }
+    } catch (e) {
+      setNotice("Completion error: " + e.message);
     }
   }
 
-  const update = { [field]: true };
-  const next = { ...r, ...update };
-  if ((field === "passengerMet" && next.driverMet) || (field === "driverMet" && next.passengerMet)) {
-    update.status = "in_progress";
-  }
-  if ((field === "passengerCompleted" && next.driverCompleted) || (field === "driverCompleted" && next.passengerCompleted)) {
-    update.status = "completed";
-  }
-  await updateDoc(doc(db, "rides", r.id), update);
-  if (update.status === "completed" && profile.role === "passenger") {
-    setRateModal(r);
-  }
-}
 
 
   async function submitRating(e) {
