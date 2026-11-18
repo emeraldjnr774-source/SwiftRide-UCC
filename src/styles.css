@@ -89,7 +89,8 @@ footer{padding:34px 6%;border-top:1px solid var(--line);display:flex;justify-con
 .error{color:#c94545;font-size:12px;display:flex;align-items:center;gap:7px;margin-top:12px}
 .back-link{color:var(--muted);font-size:12px;font-weight:600}
 .auth-aside{padding:42px;background:linear-gradient(155deg,#102d27,#175845);color:#fff;display:flex;flex-direction:column;justify-content:space-between}
-.aside-photo{border-radius:22px;padding:34px;min-height:390px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(transparent,rgba(0,0,0,.78)),url('https://unsplash.com') center/cover}
+.aside-photo{border-radius:22px;padding:34px;min-height:390px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(transparent 35%,rgba(0,0,0,.82)),url('/smile.jpg') center/cover}
+
 .aside-photo span{font-size:10px;letter-spacing:.18em;opacity:.75}
 .aside-photo h2{font:800 34px/1.12 Manrope;margin:8px 0 0}
 .auth-aside p{opacity:.8;max-width:410px;font-size:14px;line-height:1.6}

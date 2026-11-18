@@ -32,7 +32,7 @@ export const adminEmails = (import.meta.env.VITE_ADMIN_EMAILS || "")
 export const campusPlaces = [
   {
     name: "Science Market",
-    site: "Old Site",
+    site: "New Site",
     lat: 5.1125,
     lng: -1.2922,
     type: "Landmark",
@@ -46,7 +46,7 @@ export const campusPlaces = [
     lng: -1.2934,
     type: "Library",
     desc: "UCC's main multi-story academic library and quiet study complex at New Site.",
-    image: "https://unsplash.com"
+    image: "/samjonah.jpg"
   },
   {
     name: "New Lecture Theater (NLT)",
@@ -58,8 +58,53 @@ export const campusPlaces = [
     image: "https://unsplash.com"
   },
   {
+    name: "CALC Lecture Theatre",
+    site: "New Site",
+    lat: 5.119457,
+    lng: -1.291910,
+    type: "Lecture Theater",
+    desc: "Major lecture complex hosting large undergraduate classes near Valco and Amamoma.",
+    image: "https://unsplash.com"
+  },
+  {
+    name: "CANS (Science Building)",
+    site: "New Site",
+    lat: 5.116261,
+    lng: -1.293603,
+    type: "Lecture Theater",
+    desc: "Major lecture complex hosting large undergraduate classes near Valco and Amamoma.",
+    image: "https://unsplash.com"
+  },
+   {
+    name: "Sandwich Lecture Theatre (SWLT)",
+    site: "New Site",
+    lat: 5.118089,
+    lng: -1.298193,
+    type: "Lecture Theater",
+    desc: "Major lecture complex hosting large undergraduate classes near Valco and Amamoma.",
+    image: "https://unsplash.com"
+  },
+   {
+    name: "New Science Annex",
+    site: "New Site",
+    lat: 5.115064,
+    lng: -1.294270,
+    type: "Lecture Theater",
+    desc: "Major lecture complex hosting large undergraduate classes near Valco and Amamoma.",
+    image: "https://unsplash.com"
+  },
+   {
+    name: "G - Block",
+    site: "New Site",
+    lat: 5.117453,
+    lng: -1.292806,
+    type: "Lecture Theater",
+    desc: "Major lecture complex hosting large undergraduate classes near Valco and Amamoma.",
+    image: "https://unsplash.com"
+  },
+  {
     name: "Administration Block",
-    site: "Old Site",
+    site: "New Site",
     lat: 5.1059,
     lng: -1.2948,
     type: "Administration",
@@ -68,13 +113,23 @@ export const campusPlaces = [
   },
   {
     name: "Oguaa Hall",
-    site: "New Site",
+    site: "Old Site",
     lat: 5.1165,
     lng: -1.2908,
     type: "Hall",
     desc: "Premier mixed hall of residence located centrally at New Site.",
     image: "https://unsplash.com"
   },
+  {
+    name: "Adehye Hall",
+    site: "Old Site",
+    lat: 5.105306,
+    lng: -1.286306,
+    type: "Hall",
+    desc: "Premier girls hall of residence located centrally at New Site.",
+    image: "https://unsplash.com"
+  },
+  
   {
     name: "Valco Hall",
     site: "New Site",
@@ -85,8 +140,35 @@ export const campusPlaces = [
     image: "https://unsplash.com"
   },
   {
+    name: "SRC Hall",
+    site: "New Site",
+    lat: 5.133886,
+    lng: -1.286950,
+    type: "Hall",
+    desc: "Large residential hall close to the New Lecture Theater and Amamoma.",
+    image: "https://unsplash.com"
+  },
+  {
+    name: "Superannuation Hall",
+    site: "New Site",
+    lat: 5.133522,
+    lng: -1.288811,
+    type: "Hall",
+    desc: "Large residential hall close to the New Lecture Theater and Amamoma.",
+    image: "https://unsplash.com"
+  },
+  {
+    name: "Kwame Nkrumah Hall",
+    site: "New Site",
+    lat: 5.1181,
+    lng: -1.2962,
+    type: "Hall",
+    desc: "Large residential hall close to the New Lecture Theater and Amamoma.",
+    image: "https://unsplash.com"
+  },
+  {
     name: "Casford Hall",
-    site: "Old Site",
+    site: "New Site",
     lat: 5.1085,
     lng: -1.2960,
     type: "Hall",
@@ -95,7 +177,7 @@ export const campusPlaces = [
   },
   {
     name: "Atlantic Hall",
-    site: "New Site",
+    site: "Old Site",
     lat: 5.1215,
     lng: -1.2903,
     type: "Hall",
