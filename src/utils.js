@@ -129,6 +129,33 @@ export const campusPlaces = [
     desc: "Premier girls hall of residence located centrally at New Site.",
     image: "https://unsplash.com"
   },
+   {
+    name: "Amamoma",
+    site: "On-Campus",
+    lat: 5.109974,
+    lng: -1.297833,
+    type: "Town",
+    desc: "Location for Hostels",
+    image: "https://unsplash.com"
+  },
+   {
+    name: "Kwawprow",
+    site: "On-Campus",
+    lat: 5.123625,
+    lng: -1.300169,
+    type: "Town",
+    desc: "Location for Hostels",
+    image: "https://unsplash.com"
+  },
+  {
+    name: "Ayenu",
+    site: "On-Campus",
+    lat: 5.190929,
+    lng: -1.1765289,
+    type: "Town",
+    desc: "Location for Hostels",
+    image: "https://unsplash.com"
+  },
   
   {
     name: "Valco Hall",
