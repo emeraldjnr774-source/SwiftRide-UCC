@@ -150,8 +150,8 @@ export const campusPlaces = [
   {
     name: "Ayenu",
     site: "On-Campus",
-    lat: 5.190929,
-    lng: -1.1765289,
+    lat: 5.115812,
+    lng: -1.298781,
     type: "Town",
     desc: "Location for Hostels",
     image: "https://unsplash.com"
